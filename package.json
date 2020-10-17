@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/RyanDaCoder/Parallax/issues"
   },
-  "homepage": "https://github.com/RyanDaCoder/Parallax#readme"
+  "homepage": "https://github.com/RyanDaCoder/Parallax#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
 }
