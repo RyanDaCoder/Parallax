@@ -35,17 +35,37 @@ var player = {
             if (this.x < 0) {
                 this.x = 0;
             }
+            if (this.x < cameraX + 200) {
+                cameraX -= this.speed;
+            }
+            //add checking for when camera scolls off the screen.
         }
         if (keys["d"]) {
             this.x += this.speed;
-            if (this.x > 750) {
-                this.x = 750;
+            if (this.x > levelWidth) {
+                this.x = levelWidth;
+            }
+            if (this.x > cameraX + 600) {
+                cameraX += this.speed;
             }
         }
+//code that scolls camera
+        // if (keys["f"]) {
+        //     cameraX -= this.speed;
+        //     if (cameraX < 0) {
+        //         cameraX.x = 0;
+        //     }
+        // }
+        // if (keys["h"]) {
+        //      cameraX += this.speed;
+        //     if (cameraX > levelWidth) {
+        //         cameraX = levelWidth;
+        //     }
+        // }
     },
     draw: function () {
         ctx.fillStyle = "blue";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x - cameraX, this.y - cameraY, this.width, this.height);
     }
 }
 
@@ -58,7 +78,7 @@ window.onkeyup = function (e) {
 }
 
 function startGame() {
-    drawScreen();
+    drawScreen(cameraX/levelWidth);
     draw();
     move();
     window.requestAnimationFrame(startGame)
@@ -74,24 +94,28 @@ function move() {
 }
 
 var gameWidth = 800;
-var backgroundWidth = 2000;//900
-var middlegroundWidth = 2800;//1000
-var foregroundWidth = 4000;//1600
+var levelWidth = 3200;
+var backgroundWidth = 900//900
+var middlegroundWidth = 1200;//1000
+var foregroundWidth = 1600;//1600
+var cameraX = 0;
+var cameraY = 0;
 
-function drawScreen() {
-    var loc = player.x / gameWidth;
+function drawScreen(ratio) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.translate(-(backgroundWidth - gameWidth) * loc, 0);
+    ctx.translate(-(backgroundWidth - gameWidth) * ratio, 0);
     ctx.drawImage(backgroundImage, 0, 0, backgroundWidth, 200)
     ctx.setTransform(1, 0, 0, 1, 0, 0);
+        //think of getting rid of setTransform for a translate 
+        //that does the opposite of the previous translate to prevent side effects.
 
-    ctx.translate(-(middlegroundWidth - gameWidth) * loc, 0);
+    ctx.translate(-(middlegroundWidth - gameWidth) * ratio, 0);
     ctx.drawImage(middleGroundImage, 0, 200, middlegroundWidth, 200);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    ctx.translate(-(foregroundWidth - gameWidth) * loc, 0);
+    ctx.translate(-(foregroundWidth - gameWidth) * ratio, 0);
     ctx.drawImage(foregroundImage, 0, 400, foregroundWidth, 200);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
