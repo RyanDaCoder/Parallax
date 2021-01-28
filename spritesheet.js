@@ -10,12 +10,12 @@ class SpriteSheet {
         this.newHeight = newHeight;
 
     }
-    draw (ctx, x, y, t = Date.now()) {
-        if (this.state === undefined) {
+    draw (ctx, x, y, t = Date.now(), state) {
+        if (state === undefined) {
             return
         }
         
-        var [row, numberFrames, frameTime] = this.states[this.state]
+        var [row, numberFrames, frameTime] = this.states[state]
         var index = Math.floor(t % (numberFrames * frameTime) / frameTime);
         
         ctx.drawImage(this.img, index * this.width, row * this.height, this.width, this.height, x, y, this.newWidth, this.newHeight);

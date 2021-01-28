@@ -1,0 +1,37 @@
+/**
+ * foo is a function
+ * @param {Number} x 
+ * @returns {Number}
+ */
+function foo (x) {
+    return x + 1;
+}
+
+// static foo = [];
+//Enemy.foo.push(this);
+
+
+class Foo {
+    constructor(x,y) {}
+
+    greet (name) {
+        console.log('yo ' + name)
+    }
+}
+
+console.log(Foo.prototype);
+
+function Foo2() {
+
+}
+
+Foo2.prototype.greet = function(name) {
+    console.log('hi, ' + name);
+}
+
+const f1 = new Foo();
+const f2 = new Foo2();
+f1.greet('jacob');
+f2.greet("billy");
+
+console.log({f1, f2})
